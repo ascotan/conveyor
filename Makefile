@@ -1,19 +1,25 @@
-all: build
+all: server
 
-init:
+build: client server
+
+client:
+	npm install -g webpack
+	cd web; npm install
+	cd web; webpack
+	cp web/index.html build/
+
+server:
 	dep ensure
-
-build: init
 	mkdir -p build
 	go vet ./...
 	go fmt ./...
 	go build -o build/conveyor -race -v cmd/conveyor/conveyor.go
 
 clean:
-	rm -rf build vendor
+	rm -rf build vendor logs web/node_modules
 
 serve:
-	./build/conveyor
+	cd build; ./conveyor
 
 
-.PHONY: build clean
+.PHONY: build clean web serve
