@@ -1,4 +1,4 @@
-all: server
+all: build serve
 
 build: client server
 

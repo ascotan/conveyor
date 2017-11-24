@@ -6,6 +6,7 @@ import (
 )
 
 func main() {
-	log.Logger.Info("Starting conveyor")
-	http.ListenAndServe(":8081", http.FileServer(http.Dir(".")))
+	log.Logger.Info("Starting conveyor on http://localhost:8081/")
+	err := http.ListenAndServe(":8081", http.FileServer(http.Dir(".")))
+	log.Logger.Error(err.Error())
 }
